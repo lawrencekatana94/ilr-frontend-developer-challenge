@@ -15,6 +15,7 @@ import components from '@/data/components.json';
 import Timeline from "@/components/Timeline";
 import TimelineGraph from "@/components/TimelineGraph";
 import MovementChart from "@/components/MovementChart";
+import { Transactions } from "@/components/Transactions";
 
 export default function Home() {
   const contractDetails = contract_detail_view.ttContractDetailsView[0];
@@ -52,14 +53,14 @@ export default function Home() {
           day: 'numeric'
         })
       };
-    }).sort((a, b) => b.date.getTime() - a.date.getTime()); // Sort by date descending
+    }).sort((a, b) => b.date.getTime() - a.date.getTime()); 
   };
 
   const movementData = generateFullYearData();
 
   return (
       <div className="min-h-screen space-y-6">
-        {/* Top Bar - Contract Overview */}
+        {/* Top Bar - */}
         <div className="flex items-center justify-between rounded-xl bg-background border border-border/5 shadow-2xl/5  transition-all duration-300 hover:shadow-2xl/10 px-4 py-3">
           <div className="flex items-center gap-6">
             <div>
@@ -187,6 +188,11 @@ export default function Home() {
             {/* Movement Chart */}
             <div className="rounded-xl bg-background border border-border/5 shadow-2xl/5  transition-all duration-300 hover:shadow-2xl/10 px-4 py-3">
               <MovementChart movementData={movementData} />
+            </div>
+
+            {/* Transactions */}
+            <div className="rounded-xl bg-background border border-border/5 shadow-2xl/5  transition-all duration-300 hover:shadow-2xl/10 px-4 py-3">
+              <Transactions isLoading={true} transactions={[]} />
             </div>
 
           </div>

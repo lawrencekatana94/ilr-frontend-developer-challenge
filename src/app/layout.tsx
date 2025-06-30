@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Contract Management System",
+  title: "Contract Summary Dashboard",
   description: "Dashboard for contract management",
 };
 
@@ -47,7 +47,6 @@ export default function RootLayout({
               </main>
             </div>
           </ThemeProvider>
-        
       </body>
     </html>
   );
