@@ -16,8 +16,22 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+interface TimelineEvent {
+  Type: string;
+  TypeCode: string;
+  TypeLabel: string;
+  Heading: string;
+  Label: string;
+  Description: string;
+  Start: string;
+  End: string | null;
+  CssStyling: string;
+  ViewWob: string;
+  ViewObj: string;
+}
+
 interface TimelineProps {
-  timelineData: any[];
+  timelineData: TimelineEvent[];
   fullView?: boolean;
 }
 
@@ -69,7 +83,7 @@ export default function Timeline({ timelineData, fullView = false }: TimelinePro
   const parseEventData = (label: string) => {
     try {
       return JSON.parse(label);
-    } catch (e) {
+    } catch {
       return { MovementType: 'unknown', EffectiveDate: '', Premium: '0.00' };
     }
   };

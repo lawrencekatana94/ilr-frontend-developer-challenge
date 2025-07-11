@@ -27,14 +27,24 @@ interface MovementData {
   movementEffectiveDate: string;
   formattedDate: string;
   fullDate: string;
+  previousAmount?: number;
 }
 
 interface MovementChartProps {
   movementData: MovementData[];
 }
 
+type MovementTooltipProps = {
+  active?: boolean;
+  payload?: Array<{
+    value: number;
+    payload: MovementData;
+  }>;
+  label?: string;
+}
+
 // Custom tooltip component
-const MovementTooltip = ({ active, payload }: any) => {
+const MovementTooltip = ({ active, payload }: MovementTooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     const isIncrease = payload[0].value > (payload[0].payload.previousAmount || 0);
@@ -131,14 +141,15 @@ export default function MovementChart({ movementData }: MovementChartProps) {
       ];
     }
 
-    return movementData.map((item, index) => ({
-      ...item,
-      date: item.date ? item.date : new Date(item.date),
-      amount: parseFloat(item.amount as any) || 0,
-      previousAmount: index > 0 ? (
-        parseFloat(movementData[index - 1].amount as any) || 0
-      ) : undefined
-    }));
+    return movementData.map((item, index) => {
+      const prevAmount = index > 0 ? movementData[index - 1].amount : 0;
+      return {
+        ...item,
+        date: item.date ? item.date : new Date(item.date),
+        amount: typeof item.amount === 'string' ? parseFloat(item.amount) : item.amount || 0,
+        previousAmount: typeof prevAmount === 'string' ? parseFloat(prevAmount) : prevAmount || 0
+      };
+    });
   }, [movementData]);
 
   // Calculate min and max 
@@ -248,7 +259,7 @@ export default function MovementChart({ movementData }: MovementChartProps) {
               dataKey="amount"
               fontSize={11}
               tickLine={false}
-              tickFormatter={(value) => `R ${value}`}
+              tickFormatter={(value) => `R ${value.toString()}`}
               domain={[minAmount, maxAmount]}
               ticks={Array.from(
                 { length: Math.floor((maxAmount - minAmount) / interval) + 1 },

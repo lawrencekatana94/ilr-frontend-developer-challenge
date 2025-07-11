@@ -18,8 +18,22 @@ import {
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 
+interface Role {
+  entityName: string;
+  roleCode: string;
+  dateOfBirth: string | null;
+  idNumber: string;
+  cellphone?: string;
+  email?: string;
+  firstName: string;
+  lastName: string;
+  relationship: string;
+  gender: string;
+  entityTitle: string;
+}
+
 interface RolePlayersProps {
-  rolesData: any[];
+  rolesData: Role[];
   fullView?: boolean;
 }
 
@@ -28,7 +42,7 @@ export default function RolePlayers({ rolesData, fullView = false }: RolePlayers
   const [hoveredRole, setHoveredRole] = useState<number | null>(null);
   const router = useRouter();
   
-  // use only the first 4 roles
+  // use only the first 5 roles
   const displayRoles = fullView ? rolesData : rolesData.slice(0, 5);
   
   // Get role icon and style based on role

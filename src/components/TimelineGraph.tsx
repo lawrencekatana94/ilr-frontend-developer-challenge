@@ -17,8 +17,32 @@ import {
   CircleDollarSign,
 } from "lucide-react";
 
+interface TimelineEvent {
+  Start: string;
+  Label: string;
+  Description: string;
+}
+
 interface TimelineGraphProps {
-  timelineData: any[];
+  timelineData: TimelineEvent[];
+}
+
+interface TooltipData {
+  date: Date;
+  formattedDate: string;
+  premium: number;
+  type: string;
+  description: string;
+  effectiveDate: string;
+  movementObj: number;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: Array<{
+    value: number;
+    payload: TooltipData;
+  }>;
 }
 
 export default function TimelineGraph({ timelineData }: TimelineGraphProps) {
@@ -58,7 +82,7 @@ export default function TimelineGraph({ timelineData }: TimelineGraphProps) {
   };
 
   // Custom tooltip component
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (

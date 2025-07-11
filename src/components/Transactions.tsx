@@ -16,7 +16,7 @@ interface TransactionsProps {
   transactions?: Transaction[];
 }
 
-export function Transactions({ isLoading = true, transactions = [] }: TransactionsProps) {
+export function Transactions({ isLoading = true }: TransactionsProps) {
   if (isLoading) {
     return (
       <div className="py-1 space-y-4">

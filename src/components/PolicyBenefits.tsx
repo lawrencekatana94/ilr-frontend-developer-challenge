@@ -18,8 +18,30 @@ import {
 } from "lucide-react";
 import router from "next/router";
 
+interface Benefit {
+  AvailableActions: string;
+  HasChildRecords: boolean;
+  contract_component_obj: number;
+  parent_contract_component_obj: number;
+  contract_obj: number;
+  on_movement_header_obj: number;
+  component_label: string;
+  on_movement_label: string;
+  off_movement_label: string;
+  contract_component_start_date: string | null;
+  contract_component_end_date: string | null;
+  contract_component_term: string;
+  contract_component_premium: number;
+  recurring_payment_amount: number;
+  single_payment_amount: number;
+  gmv_amount: number;
+  imv_amount_1: number;
+  imv_amount_2: number;
+  contract_component_note: string;
+}
+
 interface PolicyBenefitsProps {
-  benefitsData: any[];
+  benefitsData: Benefit[];
 }
 
 export default function PolicyBenefits({ benefitsData }: PolicyBenefitsProps) {
